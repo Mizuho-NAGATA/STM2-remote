@@ -27,7 +27,7 @@ pip install influxdb
 pip install customtkinter  
 pip install tkinterdnd2  
 
-InfluxDBをインストール。 
+InfluxDBをインストール。  
 STM-2 のログスクリプトとの互換性のため、InfluxDB v1.x を推奨します。  
 
 Grafanaをインストール。  
