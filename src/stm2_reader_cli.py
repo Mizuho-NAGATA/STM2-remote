@@ -4,16 +4,15 @@
 # Last updated on: 2026-01-29
 # stm2_reader_cli.py
 # Docker コンテナ内で動く「常時監視サービス」
+
 import os
-from pathlib import Path
 from stm2_reader_core import (
     MATERIAL_DATA,
     create_influx_client,
-    tail_file
+    read_stm2_realtime   # ← 新しい関数を想定
 )
 
 def main():
-    log_dir = Path(os.environ.get("LOG_DIR", "/logs"))
     material = os.environ.get("MATERIAL", "Al")
 
     if material not in MATERIAL_DATA:
@@ -24,18 +23,16 @@ def main():
 
     client = create_influx_client()
 
-    log_files = sorted(log_dir.glob("*.log"))
-    if not log_files:
-        raise RuntimeError("No .log files found in LOG_DIR")
-
-    filepath = log_files[-1]
-    run_id = filepath.stem
-
     alert_threshold = float(os.environ.get("ALERT_THRESHOLD", "100"))
 
-    tail_file(filepath, run_id, material, density, z_ratio, alert_threshold, client)
+    # ログファイルを使わず、STM-2 から直接読み取る
+    read_stm2_realtime(
+        material=material,
+        density=density,
+        z_ratio=z_ratio,
+        alert_threshold=alert_threshold,
+        influx_client=client
+    )
 
 if __name__ == "__main__":
     main()
-
-
