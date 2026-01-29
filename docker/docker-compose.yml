@@ -23,11 +23,10 @@ services:
       - grafana-data:/var/lib/grafana
       - ./grafana/provisioning:/etc/grafana/provisioning
 
-    stm2-reader:
+  stm2-reader:
     build:
       context: ..
-      dockerfile: stm2-reader/Dockerfile 
-
+      dockerfile: stm2-reader/Dockerfile
     container_name: stm2-reader
     depends_on:
       - influxdb
@@ -35,7 +34,6 @@ services:
       INFLUX_HOST: influxdb
       INFLUX_PORT: 8086
       INFLUX_DB: stm2
-      LOG_DIR: /logs
       MATERIAL: Al
       ALERT_THRESHOLD: 100
     volumes:
@@ -44,4 +42,5 @@ services:
 volumes:
   influxdb-data:
   grafana-data:
+
 
