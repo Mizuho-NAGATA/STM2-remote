@@ -43,7 +43,7 @@ pip install tkinterdnd2
 ### 1-4. STM-2専用ソフトウェア
 INFICON公式STM-2専用ソフトウェアを起動。必要な設定をして記録 start。
 
-## 🐳 Docker による InfluxDB / Grafana の起動
+## 🐳 2. Docker による InfluxDB / Grafana の起動
 ### 2-1. Docker Desktop をインストール  
 Windows で Docker を利用するために、Docker Desktop をインストールします。  
 公式サイト：
