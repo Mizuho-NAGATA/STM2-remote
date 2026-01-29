@@ -39,7 +39,9 @@ INFICON公式STM-2専用ソフトウェアを起動。必要な設定をして�
 
 ## 🐳 Docker による InfluxDB / Grafana の起
 ### 1. Docker Desktop をインストール  
-`https://www.docker.com/products/docker-desktop/` [(docker.com in Bing)](https://www.bing.com/search?q="https%3A%2F%2Fwww.docker.com%2Fproducts%2Fdocker-desktop%2F")
+Windows で Docker を利用するために、Docker Desktop をインストールします。  
+公式サイト：
+<a href="https://www.docker.com/products/docker-desktop/" target="_blank">Docker Desktop をインストール</a>
 
 ### 2. リポジトリを取得
 
