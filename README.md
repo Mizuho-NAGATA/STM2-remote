@@ -52,9 +52,11 @@ Windows で Docker を利用するために、Docker Desktop をインストー�
 <a href="https://www.docker.com/products/docker-desktop/" target="_blank">https://www.docker.com/products/docker-desktop/</a>
 
 ### 2-2. リポジトリを取得  
+コマンドプロンプトで下記を実行。
 ```
-git clone ...
+git clone https://github.com/Mizuho-NAGATA/INFICON_STM-2_remote_monitor
 ```
+次に下記を実行。
 ```
 cd INFICON_STM-2_remote_monitor
 ```
