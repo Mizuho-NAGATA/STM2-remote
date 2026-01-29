@@ -1,4 +1,5 @@
 @echo off
+cd /d "%~dp0"
 echo ============================================
 echo   STM-2 Monitoring System - Startup Script
 echo ============================================
