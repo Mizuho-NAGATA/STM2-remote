@@ -30,7 +30,7 @@ InfluxDBをインストール。
 STM-2 のログスクリプトとの互換性のため、InfluxDB v1.x を推奨します。  
 
 Grafanaをインストール。  
-"STM-2-1769471897840.json" をインポートして各種設定を完了させる。  
+"STM-2_dashboard.json" をインポートして各種設定を完了させる。  
 - Grafana → Dashboards → Import  
 - JSON Upload または JSON を貼り付け  
 - Data source を InfluxDB に設定  
