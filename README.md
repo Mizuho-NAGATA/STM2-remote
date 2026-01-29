@@ -97,10 +97,15 @@ http://（STM-2接続パソコンの固定IPアドレス）:3000
 ## 📁 5. ディレクトリ構成
 ```
 INFICON_STM-2_remote_monitor/
+├── start_monitoring.bat        ← 起動ボタン
+├── stop_monitoring.bat         ← 停止ボタン
+│
 ├── src/
 │   ├── gui_app.py
 │   └── stm2_reader_core.py
+│
 ├── docker-compose.yml
+│
 └── docker/
     └── grafana/
         └── provisioning/
