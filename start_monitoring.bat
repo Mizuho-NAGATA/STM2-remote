@@ -56,7 +56,7 @@ echo.
 
 REM --- docker compose up 実行 ---
 echo Starting STM-2 monitoring system...
-docker compose up -d
+docker compose -f docker\docker-compose.yml up -d
 IF %ERRORLEVEL% NEQ 0 (
     echo.
     echo [ERROR] docker compose up に失敗しました。
@@ -80,3 +80,4 @@ echo.
 docker compose logs -f
 
 pause
+
