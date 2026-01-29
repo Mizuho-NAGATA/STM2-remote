@@ -1,8 +1,22 @@
 @echo off
 cd /d "%~dp0"
+
 echo ============================================
 echo   STM-2 Monitoring System - Startup Script
 echo ============================================
+echo.
+
+REM --- IP address input via GUI (English, safe from mojibake) ---
+for /f "delims=" %%i in ('powershell -command "[void][System.Reflection.Assembly]::LoadWithPartialName('Microsoft.VisualBasic'); [Microsoft.VisualBasic.Interaction]::InputBox('Enter the fixed IP address of the STM-2 PC','IP Address','')"') do set STM2_IP=%%i
+
+if "%STM2_IP%"=="" (
+    echo [ERROR] No IP address entered.
+    echo        Please run start_monitoring.bat again.
+    pause
+    exit /b 1
+)
+
+echo Using IP: %STM2_IP%
 echo.
 
 REM --- Docker Desktop のインストールチェック ---
@@ -57,7 +71,7 @@ echo.
 
 REM --- Grafana を自動で開く ---
 echo Opening Grafana dashboard...
-start "" http://localhost:3000
+start "" http://%STM2_IP%:3000
 
 REM --- ログウィンドウを表示 ---
 echo Showing container logs...
