@@ -63,8 +63,8 @@ cd INFICON_STM-2_remote_monitor
 
 ### 2-3. **start_monitoring.bat をダブルクリックする**
 ## ▶ 起動ボタン（ワンクリック）
-
-下のボタンをクリックすると、起動用の bat ファイルをダウンロードできます。
+ボタンを右クリック → 「名前を付けて保存」で bat を保存してください。
+保存後、ダブルクリックで実行できます。  
 
 <p>
   <a href="https://github.com/Mizuho-NAGATA/INFICON_STM-2_remote_monitor/raw/main/start_monitoring.bat">
