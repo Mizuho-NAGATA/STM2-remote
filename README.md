@@ -109,7 +109,7 @@ http://（STM-2接続パソコンの固定IPアドレス）:3000
     └── grafana/
         └── provisioning/
             ├── dashboards/
-            │   └── STM-2-1769471897840.json   ← Grafana ダッシュボードの自動読み込み設定
+            │   └── STM-2_dashboard.json   ← Grafana ダッシュボードの自動読み込み設定
             └── datasources/
                 └── influxdb.yml               ← InfluxDB のデータソース設定（Grafana が自動で参照）
 ```
