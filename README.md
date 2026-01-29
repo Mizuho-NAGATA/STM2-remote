@@ -17,14 +17,14 @@
 - 研究室の自動化・遠隔監視に適したシンプルな構成
 
 
-## 🖥️ STM-2 接続パソコンの準備：
+## 🖥️ 1. STM-2 接続パソコンの準備：
 Windowsマシンを想定しています。  
 
-### 1. ファイアウォール設定
-Windows Defender ファイアウォールに受信規則を追加してポート3000を開放する（Grafana用）。  
-固定IPアドレスを設定する（遠隔監視用）。あらかじめネットワーク管理者に確認することをおすすめします。  
+### 1-1. ファイアウォール設定
+- Windows Defender ファイアウォールに受信規則を追加してポート3000を開放する（Grafana用）。  
+- 固定IPアドレスを設定する（遠隔監視用）。あらかじめネットワーク管理者に確認することをおすすめします。  
 
-### 2. Python のインストール
+### 1-2. Python のインストール
 Pythonをインストール。  
 コマンドプロンプトで下記の三つのコマンドを実行して必要なライブラリをインストールする。  
 
@@ -32,9 +32,7 @@ pip install influxdb
 pip install customtkinter  
 pip install tkinterdnd2  
 
-## 動作手順：
-
-### Git for Windows をインストール
+### 1-3. Git for Windows をインストール
 - 公式サイトを開く
 <a href="https://git-scm.com/download/win" target="_blank" rel="noopener">https://git-scm.com/download/win</a>
 - インストーラーを実行
@@ -42,24 +40,23 @@ pip install tkinterdnd2
 → 特に設定を変える必要はありません
 → “Git Bash Here” が追加されます
 
-
 ### STM-2専用ソフトウェア
 INFICON公式STM-2専用ソフトウェアを起動。必要な設定をして記録 start。
 
-## 🐳 Docker による InfluxDB / Grafana の起
-### 1. Docker Desktop をインストール  
+## 🐳 Docker による InfluxDB / Grafana の起動
+### 2-1. Docker Desktop をインストール  
 Windows で Docker を利用するために、Docker Desktop をインストールします。  
 公式サイト：
 <a href="https://www.docker.com/products/docker-desktop/" target="_blank">Docker Desktop をインストール</a>
 
-### 2. リポジトリを取得
-
+### 2-2. リポジトリを取得
+コマンドプロンプトで下記を実行。  
 ```bash
 git clone https://github.com/Mizuho-NAGATA/INFICON_STM-2_remote_monitor
 cd INFICON_STM-2_remote_monitor
 ```
 
-### 3. Docker を起動
+### 2-3. Docker を起動
 
 ```bash
 docker compose up -d
@@ -72,7 +69,7 @@ docker compose up -d
 
 が自動で起動します。
 
-## 🖱️ GUI アプリの使い方
+## 🖱️ 3. GUI アプリの使い方
 GUI は Docker に入れず、Windows 上で動かします。
 
 ```bash
@@ -87,14 +84,14 @@ python src/gui_app.py
 
 ---
 
-### 📊 Grafana による遠隔監
+### 📊 4. Grafana による遠隔監
 遠隔監視したいパソコンのwebブラウザを開き、下記URLを開く。  
 http://（STM-2接続パソコンの固定IPアドレス）:3000  
 - Grafana が表示されます  
 - ダッシュボードは自動ロード済み  
 - Data source は InfluxDB に設定済み
 
-## 📁 ディレクトリ構成
+## 📁 5. ディレクトリ構成
 ```
 INFICON_STM-2_remote_monitor/
 ├── src/
