@@ -64,7 +64,8 @@ cd INFICON_STM-2_remote_monitor
 ### 2-3. **start_monitoring.bat をダブルクリックする**
 ## ▶ 起動
 C:\Users\（ユーザー名）\INFICON_STM-2_remote_monitor\INFICON_STM-2_remote_monitor\start_monitoring.bat  
-をダブルクリックして実行
+をダブルクリックして実行。 
+STM-2接続パソコンの固定IPアドレスを入力します。 
 - Docker Desktop が自動起動<br>  
 - 完全起動まで自動待機<br>  
 - InfluxDB / Grafana が自動起動<br>  
@@ -73,12 +74,6 @@ C:\Users\（ユーザー名）\INFICON_STM-2_remote_monitor\INFICON_STM-2_remote
 ## ■ 停止
 C:\Users\（ユーザー名）\INFICON_STM-2_remote_monitor\INFICON_STM-2_remote_monitor\stop_monitoring.bat  
 をダブルクリックして停止。
-
-<p>
-  <a href="https://github.com/Mizuho-NAGATA/INFICON_STM-2_remote_monitor/raw/main/stop_monitoring.bat">
-    <img src="https://img.shields.io/badge/Stop%20Monitoring.bat-Download-red?style=for-the-badge">
-  </a>
-</p>
 
 ---
 
