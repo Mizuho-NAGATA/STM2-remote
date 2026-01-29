@@ -33,7 +33,7 @@ pip install customtkinter
 pip install tkinterdnd2  
 
 ### 1-3. Git for Windows をインストール
-- 公式サイトを開く
+- 公式サイト:
 <a href="https://git-scm.com/download/win" target="_blank" rel="noopener">https://git-scm.com/download/win</a>
 - インストーラーを実行  
 → 「Next」を押していくだけで OK  
@@ -47,7 +47,7 @@ INFICON公式STM-2専用ソフトウェアを起動。必要な設定をして�
 ### 2-1. Docker Desktop をインストール  
 Windows で Docker を利用するために、Docker Desktop をインストールします。  
 公式サイト：
-<a href="https://www.docker.com/products/docker-desktop/" target="_blank">Docker Desktop をインストール</a>
+<a href="https://www.docker.com/products/docker-desktop/" target="_blank">https://www.docker.com/products/docker-desktop/</a>
 
 ### 2-2. リポジトリを取得
 コマンドプロンプトで下記を実行。  
@@ -84,7 +84,7 @@ python src/gui_app.py
 
 ---
 
-### 📊 4. Grafana による遠隔監
+### 📊 4. Grafana による遠隔監視
 遠隔監視したいパソコンのwebブラウザを開き、下記URLを開く。  
 http://（STM-2接続パソコンの固定IPアドレス）:3000  
 - Grafana が表示されます  
