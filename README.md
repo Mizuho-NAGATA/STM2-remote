@@ -1,9 +1,11 @@
 # INFICON_STM-2_remote_monitor
-- INFICON STM-2 USB 薄膜蒸着レート/膜厚モニター の.logファイルを遠隔監視するためのシステム。（INFICON非公式）  
+- INFICON STM-2 USB 薄膜蒸着レート/膜厚モニター の.logファイルを遠隔監視するためのシステム。
 - **InfluxDB** と **Grafana** を用いてリアルタイムに可視化します。  
 - このリポジトリには、すぐに利用できる Grafana ダッシュボード（JSON）が含まれています。  
  
-![外部向け説明資料](https://github.com/user-attachments/assets/eb5fce0c-8dbf-4847-b3d2-5c2d21164ab5)
+![外部向け説明資料](https://github.com/user-attachments/assets/eb5fce0c-8dbf-4847-b3d2-5c2d21164ab5)  
+**注意：このプログラムはINFICON社の公式なものではありません。**  
+**Note: This program is not official INFICON.**  
 本システムで使用する物性値について、正確性を保証するものではありません。利用により生じたいかなる結果についても、作者は責任を負いません。  
 電子ビーム蒸着装置に取り付けられたSTM-2を想定して作成。  
 
