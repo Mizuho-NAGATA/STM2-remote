@@ -20,19 +20,24 @@
 ## STM-2接続パソコンの準備：
 Windowsマシンを想定しています。  
 Windows Defender ファイアウォールに受信規則を追加してポート3000を開放する。  
-固定IPアドレスを設定する。あらかじめネットワーク管理者に確認することをおすすめします。  
-STM-2を接続しているパソコンに、Pythonをインストール。  
+固定IPアドレスを設定する。あらかじめネットワーク管理者に確認することをおすすめします。 
+
+### Pythonをインストール  
+**公式サイト：** https://www.python.org/  
+
 コマンドプロンプトで下記の三つのコマンドを実行して必要なライブラリをインストールする。  
 
 pip install influxdb  
 pip install customtkinter  
 pip install tkinterdnd2  
 
-InfluxDBをインストール。  
-https://www.influxdata.com/
+### InfluxDBをインストール  
+**公式サイト：** https://www.influxdata.com/  
 STM-2 のログスクリプトとの互換性のため、InfluxDB v1.x を推奨します。  
 
-Grafanaをインストール。  
+### Grafanaをインストール  
+**公式サイト：** https://grafana.com/ja/  
+
 "STM-2_dashboard.json" をインポートして各種設定を完了させる。  
 - Grafana → Dashboards → Import  
 - JSON Upload または JSON を貼り付け  
