@@ -33,7 +33,7 @@ pip install tkinterdnd2
 STM-2 のログスクリプトとの互換性のため、InfluxDB v1.x を推奨します。  
 
 ### Grafanaをインストール  
-**公式サイト：** https://grafana.com/ja/  
+**公式サイト：** https://grafana.com/ 
 
 "STM-2_dashboard.json" をインポートして各種設定を完了させる。  
 - Grafana → Dashboards → Import  
