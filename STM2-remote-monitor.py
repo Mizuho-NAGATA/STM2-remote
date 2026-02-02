@@ -1,7 +1,7 @@
 # -------------------------------------------------------------
 # 本ソフトウェアは Microsoft Copilot 、ChatGPT を活用して開発されました。
 # Copyright (c) 2026 NAGATA Mizuho.
-# Institute of Laser Engineering, Osaka University.
+# Institute of Laser Engineering, The University of Osaka.
 # Created on: 2026-01-20
 # Last updated on: 2026-01-30
 #
@@ -293,5 +293,6 @@ label_status = ctk.CTkLabel(frame, text="Waiting…", font=default_font)
 label_status.grid(row=7, column=0, columnspan=3, **pad)
 
 root.mainloop()
+
 
 
