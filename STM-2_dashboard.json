@@ -99,7 +99,7 @@
           "calcs": [
             "lastNotNull"
           ],
-          "fields": "/^last$/"
+          "fields": "/^last$/",
           "values": false
         },
         "showPercentChange": false,
