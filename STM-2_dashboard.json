@@ -99,7 +99,7 @@
           "calcs": [
             "lastNotNull"
           ],
-          "fields": "/^alert_state$/",
+          "fields": "/^last$/"
           "values": false
         },
         "showPercentChange": false,
