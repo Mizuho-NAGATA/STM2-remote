@@ -420,3 +420,4 @@ if __name__ == "__main__":
     gui = STM2LoggerGUI()
     gui.run()
 
+
