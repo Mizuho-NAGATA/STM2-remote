@@ -214,40 +214,10 @@
       "pluginVersion": "12.3.1",
       "targets": [
         {
-          "groupBy": [
-            {
-              "params": [
-                "$__interval"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "measurement": "stm2",
-          "orderByTime": "ASC",
-          "policy": "default",
+          "query": "SELECT last(\"alert_state\") FROM \"stm2_settings\" WHERE \"alert_state\" >= 0",
+          "rawQuery": true,
           "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "thickness"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ]
-          ],
-          "tags": []
+          "resultFormat": "time_series"
         }
       ],
       "title": "Thickness [nm]",
