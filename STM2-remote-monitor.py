@@ -57,12 +57,13 @@ class STM2Logger:
         self.prev_alert_state = {}
 
     # ----------------------------
-    # CSV 1行パース
+    # CSV 1行パース（STM-2 は5列、末尾が空欄）
     # ----------------------------
     def parse_csv_line(self, line):
         try:
             row = next(csv.reader([line]))
-            # 末尾の空要素を削除
+
+            # 末尾の空要素を削除（STM-2ログは最後にカンマが付く）
             row = [x for x in row if x.strip() != ""]
 
             if len(row) != 4:
@@ -80,16 +81,8 @@ class STM2Logger:
     # ----------------------------
     # tail スレッド
     # ----------------------------
-    def tail_file(
-        self,
-        filepath,
-        run_id,
-        material,
-        density,
-        z_ratio,
-        alert_threshold,
-        callback=None,
-    ):
+    def tail_file(self, filepath, run_id, material, density, z_ratio, alert_threshold, callback=None):
+
         if run_id not in self.prev_alert_state:
             self.prev_alert_state[run_id] = None
 
@@ -111,15 +104,17 @@ class STM2Logger:
                     if not data:
                         continue
 
-                    # InfluxDB 書き込み
+                    # ----------------------------
+                    # InfluxDB 書き込み（density / z_ratio を tag 化）
+                    # ----------------------------
                     json_body = [
                         {
                             "measurement": "stm2",
                             "tags": {
                                 "run_id": run_id,
                                 "material": material,
-                                "density": str(density),   # tag は文字列
-                                "z_ratio": str(z_ratio),   # tag は文字列
+                                "density": str(density),
+                                "z_ratio": str(z_ratio),
                             },
                             "fields": {
                                 "time": data["time"],
@@ -129,29 +124,31 @@ class STM2Logger:
                             },
                         }
                     ]
+
                     try:
                         self.client.write_points(json_body)
                     except Exception as e:
                         print(f"InfluxDB write error: {e}")
 
+                    # ----------------------------
                     # アラート判定
+                    # ----------------------------
                     alert_state = int(data["thickness"] >= alert_threshold)
+
                     if alert_state != self.prev_alert_state[run_id]:
                         try:
-                            self.client.write_points(
-                                [
-                                    {
-                                        "measurement": "stm2_settings",
-                                        "tags": {"run_id": run_id},
-                                        "fields": {"alert_state": alert_state},
-                                    }
-                                ]
-                            )
+                            self.client.write_points([
+                                {
+                                    "measurement": "stm2_settings",
+                                    "tags": {"run_id": run_id},
+                                    "fields": {"alert_state": alert_state}
+                                }
+                            ])
                             self.prev_alert_state[run_id] = alert_state
                         except Exception as e:
                             print(f"InfluxDB alert write error: {e}")
 
-                    # GUI に通知
+                    # GUI 更新コールバック
                     if callback:
                         callback(data)
 
@@ -162,42 +159,30 @@ class STM2Logger:
     # ----------------------------
     # ログ監視開始
     # ----------------------------
-    def start(
-        self, filepath, run_id, material, density, z_ratio, target_nm, callback=None
-    ):
+    def start(self, filepath, run_id, material, density, z_ratio, target_nm, callback=None):
         self.stop_event.clear()
         alert_threshold = target_nm * 0.8
 
         # 初期設定を InfluxDB に書き込み
         try:
-            self.client.write_points(
-                [
-                    {
-                        "measurement": "stm2_settings",
-                        "tags": {"run_id": run_id},
-                        "fields": {
-                            "target_thickness": target_nm,
-                            "alert_threshold": alert_threshold,
-                        },
+            self.client.write_points([
+                {
+                    "measurement": "stm2_settings",
+                    "tags": {"run_id": run_id},
+                    "fields": {
+                        "target_thickness": target_nm,
+                        "alert_threshold": alert_threshold
                     }
-                ]
-            )
+                }
+            ])
         except Exception as e:
             raise RuntimeError(f"InfluxDB 初期化失敗: {e}")
 
         # スレッド開始
         self.thread = threading.Thread(
             target=self.tail_file,
-            args=(
-                filepath,
-                run_id,
-                material,
-                density,
-                z_ratio,
-                alert_threshold,
-                callback,
-            ),
-            daemon=True,
+            args=(filepath, run_id, material, density, z_ratio, alert_threshold, callback),
+            daemon=True
         )
         self.thread.start()
 
@@ -422,6 +407,7 @@ class STM2LoggerGUI:
 if __name__ == "__main__":
     gui = STM2LoggerGUI()
     gui.run()
+
 
 
 
