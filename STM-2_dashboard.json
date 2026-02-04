@@ -99,13 +99,23 @@
           "calcs": [
             "lastNotNull"
           ],
-          "fields": "/^stm2_settings\\.last$/",
+          "fields": "/^alert_state$/",
           "values": false
         },
         "showPercentChange": false,
         "textMode": "value",
-        "wideLayout": true
-      },
+        "wideLayout": true,
+
+        "custom": {
+          "stat": {
+            "padding": "md",
+            "text": {
+              "titleSize": "sm",
+              "valueSize": "xl"
+            }
+          }
+        }
+    },
       "pluginVersion": "12.3.1",
       "targets": [
         {
