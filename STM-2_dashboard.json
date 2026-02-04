@@ -100,7 +100,7 @@
             "lastNotNull"
           ],
           "fields": "/^last$/",
-          "values": false
+          "values": false,
         },
         "showPercentChange": false,
         "textMode": "value",
