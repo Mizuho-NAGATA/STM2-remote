@@ -34,7 +34,7 @@
           "mappings": [
             {
               "options": {
-                " 1": {
+                "1": {
                   "color": "dark-red",
                   "index": 0,
                   "text": "目標厚さの80％を超えました"
@@ -46,48 +46,14 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              {
-                "color": "green",
-                "value": 0
-              },
-              {
-                "color": "red",
-                "value": 1
-              }
+              { "color": "green", "value": 0 },
+              { "color": "red", "value": 1 }
             ]
           }
         },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "stm2_settings.last"
-            },
-            "properties": [
-              {
-                "id": "mappings",
-                "value": [
-                  {
-                    "options": {
-                      "1": {
-                        "index": 0,
-                        "text": "目標厚さの80%を超えました"
-                      }
-                    },
-                    "type": "value"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 0
-      },
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 0 },
       "id": 6,
       "options": {
         "colorMode": "background",
@@ -96,16 +62,13 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "/^last$/",
-          "values": false,
+          "values": false
         },
         "showPercentChange": false,
         "textMode": "value",
         "wideLayout": true,
-
         "custom": {
           "stat": {
             "padding": "md",
@@ -115,51 +78,20 @@
             }
           }
         }
-    },
+      },
       "pluginVersion": "12.3.1",
       "targets": [
         {
-          "groupBy": [
-            {
-              "params": [
-                "$__interval"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "measurement": "stm2_settings",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT last(\"alert_state\") FROM \"stm2_settings\" WHERE \"alert_state\" >= 0",,
+          "query": "SELECT last(\"alert_state\") FROM \"stm2_settings\" WHERE \"alert_state\" >= 0",
           "rawQuery": true,
           "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "value"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ]
-          ],
-          "tags": []
+          "resultFormat": "time_series"
         }
       ],
       "title": "Thickness 80% Alert",
       "type": "stat"
     },
+
     {
       "datasource": {
         "type": "influxdb",
@@ -167,32 +99,19 @@
       },
       "fieldConfig": {
         "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
+          "color": { "mode": "thresholds" },
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              {
-                "color": "green",
-                "value": 0
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
+              { "color": "green", "value": 0 },
+              { "color": "red", "value": 80 }
             ]
           }
         },
         "overrides": []
       },
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 12,
-        "y": 0
-      },
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 0 },
       "id": 2,
       "options": {
         "colorMode": "value",
@@ -201,10 +120,8 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
+          "calcs": ["lastNotNull"],
+          "fields": "/^last$/",
           "values": false
         },
         "showPercentChange": false,
@@ -223,6 +140,7 @@
       "title": "Thickness [nm]",
       "type": "stat"
     },
+
     {
       "datasource": {
         "type": "influxdb",
@@ -230,44 +148,19 @@
       },
       "fieldConfig": {
         "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
+          "color": { "mode": "thresholds" },
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              {
-                "color": "green",
-                "value": 0
-              },
-              {
-                "color": "red",
-                "value": 1000
-              }
+              { "color": "green", "value": 0 },
+              { "color": "red", "value": 1000 }
             ]
           }
         },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "stm2.last"
-            },
-            "properties": [
-              {
-                "id": "color"
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 8
-      },
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 8 },
       "id": 5,
       "options": {
         "colorMode": "value",
@@ -276,10 +169,8 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
+          "calcs": ["lastNotNull"],
+          "fields": "/^last$/",
           "values": false
         },
         "showPercentChange": false,
@@ -298,6 +189,7 @@
       "title": "Target Thickness [nm]",
       "type": "stat"
     },
+
     {
       "datasource": {
         "type": "influxdb",
@@ -305,172 +197,40 @@
       },
       "fieldConfig": {
         "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": 0
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 12,
-        "y": 8
-      },
-      "id": 1,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "percentChangeColorMode": "standard",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showPercentChange": false,
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "pluginVersion": "12.3.1",
-      "targets": [
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "ffa7izoai6m80b"
-          },
-          "groupBy": [
-            {
-              "params": [
-                "$__interval"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "measurement": "stm2",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "rate"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ]
-          ],
-          "tags": []
-        }
-      ],
-      "title": "Rate [nm/s]",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "influxdb",
-        "uid": "ffa7izoai6m80b"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
+          "color": { "mode": "thresholds" },
           "custom": {
             "align": "auto",
-            "cellOptions": {
-              "type": "pill"
-            },
-            "footer": {
-              "reducers": []
-            },
+            "cellOptions": { "type": "pill" },
+            "footer": { "reducers": [] },
             "inspect": false
           },
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              {
-                "color": "green",
-                "value": 0
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
+              { "color": "green", "value": 0 },
+              { "color": "red", "value": 80 }
             ]
           }
         },
         "overrides": []
       },
-      "gridPos": {
-        "h": 3,
-        "w": 24,
-        "x": 0,
-        "y": 16
-      },
+      "gridPos": { "h": 3, "w": 24, "x": 0, "y": 16 },
       "id": 4,
       "options": {
         "cellHeight": "lg",
         "showHeader": true,
         "sortBy": [
-          {
-            "desc": true,
-            "displayName": "Thickness"
-          }
+          { "desc": true, "displayName": "Thickness" }
         ]
       },
       "pluginVersion": "12.3.1",
       "targets": [
         {
           "groupBy": [
-            {
-              "params": [
-                "material::tag"
-              ],
-              "type": "tag"
-            },
-            {
-              "params": [
-                "density::tag"
-              ],
-              "type": "tag"
-            },
-            {
-              "params": [
-                "z_ratio::tag"
-              ],
-              "type": "tag"
-            }
+            { "params": ["material::tag"], "type": "tag" },
+            { "params": ["density::tag"], "type": "tag" },
+            { "params": ["z_ratio::tag"], "type": "tag" }
           ],
           "measurement": "stm2",
           "orderByTime": "ASC",
@@ -479,16 +239,8 @@
           "resultFormat": "table",
           "select": [
             [
-              {
-                "params": [
-                  "thickness"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "last"
-              }
+              { "params": ["thickness"], "type": "field" },
+              { "params": [], "type": "last" }
             ]
           ],
           "tags": []
@@ -499,9 +251,7 @@
         {
           "id": "organize",
           "options": {
-            "excludeByName": {
-              "last": false
-            },
+            "excludeByName": { "last": false },
             "includeByName": {},
             "indexByName": {
               "Time": 0,
@@ -512,14 +262,13 @@
             },
             "orderBy": [],
             "orderByMode": "manual",
-            "renameByName": {
-              "last": "Thickness"
-            }
+            "renameByName": { "last": "Thickness" }
           }
         }
       ],
       "type": "table"
     },
+
     {
       "datasource": {
         "type": "influxdb",
@@ -527,32 +276,19 @@
       },
       "fieldConfig": {
         "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
+          "color": { "mode": "thresholds" },
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              {
-                "color": "green",
-                "value": 0
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
+              { "color": "green", "value": 0 },
+              { "color": "red", "value": 80 }
             ]
           }
         },
         "overrides": []
       },
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 19
-      },
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 19 },
       "id": 3,
       "options": {
         "colorMode": "value",
@@ -561,9 +297,7 @@
         "orientation": "auto",
         "percentChangeColorMode": "standard",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -574,42 +308,10 @@
       "pluginVersion": "12.3.1",
       "targets": [
         {
-          "groupBy": [
-            {
-              "params": [
-                "$__interval"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "measurement": "stm2",
-          "orderByTime": "ASC",
-          "policy": "default",
           "query": "SELECT mean(\"frequency\") FROM \"stm2\" WHERE $timeFilter GROUP BY time($__interval) fill(null)",
           "rawQuery": false,
           "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "frequency"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ]
-          ],
-          "tags": []
+          "resultFormat": "time_series"
         }
       ],
       "title": "Frequency [Hz]",
@@ -619,13 +321,8 @@
   "preload": false,
   "schemaVersion": 42,
   "tags": [],
-  "templating": {
-    "list": []
-  },
-  "time": {
-    "from": "now-5m",
-    "to": "now"
-  },
+  "templating": { "list": [] },
+  "time": { "from": "now-5m", "to": "now" },
   "timepicker": {},
   "timezone": "browser",
   "title": "STM-2",
