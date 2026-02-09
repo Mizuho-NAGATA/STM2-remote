@@ -20,6 +20,7 @@ import platform
 import customtkinter as ctk
 from influxdb import InfluxDBClient
 from tkinterdnd2 import DND_FILES, TkinterDnD
+from pathlib import Path
 
 # --- 材料データ ---
 # MATERIAL_DATA の出典
@@ -338,15 +339,18 @@ class STM2LoggerGUI:
     # ファイル参照
     # ----------------------------
     def browse_file(self):
+        """Platform-independent file dialog"""
         filename = filedialog.askopenfilename(
             title="STM-2 ログファイルを選択",
             filetypes=[("Log files", "*.log"), ("All files", "*.*")],
         )
         if filename:
+            # pathlib を使うことでパスセパレータ自動対応
+            file_path = Path(filename)
             self.entry_logfile.delete(0, "end")
-            self.entry_logfile.insert(0, filename)
+            self.entry_logfile.insert(0, str(file_path))
             self.entry_runid.delete(0, "end")
-            self.entry_runid.insert(0, os.path.splitext(os.path.basename(filename))[0])
+            self.entry_runid.insert(0, file_path.stem)  # 拡張子なしファイル名
 
     # ----------------------------
     # DnD
@@ -429,3 +433,4 @@ class STM2LoggerGUI:
 if __name__ == "__main__":
     gui = STM2LoggerGUI()
     gui.run()
+
