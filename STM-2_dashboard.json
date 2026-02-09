@@ -120,7 +120,7 @@
             "binary": {
               "left": "Progress",
               "operator": "*",
-              "right": "100"
+              "right": 100
             },
             "mode": "binary",
             "reduce": {
