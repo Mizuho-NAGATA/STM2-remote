@@ -147,8 +147,9 @@ sudo systemctl enable influxdb
 Ubuntu/Debian の場合：
 ```bash
 sudo apt-get install -y software-properties-common
-sudo add-apt-repository "deb https://packages.grafana.com/oss/deb stable main"
-wget -q -O - https://packages.grafana.com/gpg.key | sudo apt-key add -
+sudo mkdir -p /etc/apt/keyrings/
+wget -q -O - https://packages.grafana.com/gpg.key | gpg --dearmor | sudo tee /etc/apt/keyrings/grafana.gpg > /dev/null
+echo "deb [signed-by=/etc/apt/keyrings/grafana.gpg] https://packages.grafana.com/oss/deb stable main" | sudo tee /etc/apt/sources.list.d/grafana.list
 sudo apt-get update
 sudo apt-get install grafana
 sudo systemctl start grafana-server
