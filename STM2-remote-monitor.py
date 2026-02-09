@@ -3,7 +3,7 @@
 # Copyright (c) 2026 NAGATA Mizuho.
 # Institute of Laser Engineering, The University of Osaka.
 # Created on: 2026-01-20
-# Last updated on: 2026-02-04
+# Last updated on: 2026-02-09
 #
 # pip install influxdb
 # pip install customtkinter
@@ -14,6 +14,8 @@ import os
 import threading
 import time
 from tkinter import filedialog, messagebox
+import sys
+import platform
 
 import customtkinter as ctk
 from influxdb import InfluxDBClient
@@ -43,6 +45,22 @@ MATERIAL_DATA = {
     "Ti": {"density": 4.54, "zratio": 0.628},
 }
 
+def setup_font():
+    """Set appropriate font based on platform"""
+    current_platform = platform.system()  # 'Windows', 'Darwin' (macOS), 'Linux'
+    
+    if current_platform == 'Windows':
+        font_family = "Meiryo"
+    elif current_platform == 'Darwin':  # macOS
+        font_family = "Hiragino Sans"
+    else:  # Linux
+        font_family = "Noto Sans CJK JP"
+    
+    return ctk.CTkFont(family=font_family, size=24)
+
+# GUI構築時に使用
+def build_gui(self):
+    default_font = setup_font()  # プラットフォーム自動検出
 
 # ============================================================
 # ロガー本体（GUI 非依存）
@@ -411,10 +429,4 @@ class STM2LoggerGUI:
 if __name__ == "__main__":
     gui = STM2LoggerGUI()
     gui.run()
-
-
-
-
-
-
 
