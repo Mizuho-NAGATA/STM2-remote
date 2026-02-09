@@ -3,7 +3,7 @@
 # Copyright (c) 2026 NAGATA Mizuho.
 # Institute of Laser Engineering, The University of Osaka.
 # Created on: 2026-01-20
-# Last updated on: 2026-02-04
+# Last updated on: 2026-02-09
 #
 # pip install influxdb
 # pip install customtkinter
@@ -425,3 +425,4 @@ class STM2LoggerGUI:
 if __name__ == "__main__":
     gui = STM2LoggerGUI()
     gui.run()
+
