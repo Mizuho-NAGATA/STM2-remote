@@ -99,7 +99,7 @@
           "query": SELECT last("frequency")
           FROM "stm2"
           WHERE $timeFilter AND "run_id" =~ /^$run_id$/
-          GROUP BY "run_id",
+          GROUP BY "run_id"",
           "rawQuery": true,
           "refId": "A"
         }
