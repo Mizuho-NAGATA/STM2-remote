@@ -89,7 +89,7 @@
             "uid": "ffa7izoai6m80b"
           },
           "groupBy": [],
-          "hide": false,
+          "hide": true,
           "measurement": "stm2",
           "orderByTime": "ASC",
           "policy": "default",
@@ -117,7 +117,7 @@
             "uid": "ffa7izoai6m80b"
           },
           "groupBy": [],
-          "hide": false,
+          "hide": true,
           "measurement": "stm2_settings",
           "orderByTime": "ASC",
           "policy": "default",
@@ -145,7 +145,7 @@
             "type": "__expr__",
             "uid": "__expr__"
           },
-          "expression": "$A / $B * 100",
+          "expression": "($A / $B) * 100",
           "hide": false,
           "refId": "C",
           "type": "math"
