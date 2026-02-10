@@ -7,11 +7,6 @@
 - This repository includes a ready-to-use Grafana dashboard (JSON).
 
 ![外部向け説明資料](https://github.com/user-attachments/assets/eb5fce0c-8dbf-4847-b3d2-5c2d21164ab5)  
-注意：このプログラムはINFICON社の公式なものではありません。  
-Note: This program is not official INFICON.  
-本リポジトリの著者は商用サポートを提供するものではありません。ネットワーク構成やセキュリティ対策は各組織のポリシーに従って実施してください。  
-本システムで使用する物性値について、正確性を保証するものではありません。利用により生じたいかなる結果についても、作者は責任を負いません。  
-電子ビーム蒸着装置に取り付けられたSTM-2を想定して作成。  
 
 ## ✨ 特長
 
@@ -22,6 +17,12 @@ Note: This program is not official INFICON.
 - Simultaneous multi-site monitoring via network
 - Panel lights up red to notify when thickness exceeds 80% of target thickness
 ![keikoku](https://github.com/user-attachments/assets/13df291b-82ce-4b08-9643-8e03dbeeca35)
+
+注意：このプログラムはINFICON社の公式なものではありません。  
+Note: This program is not official INFICON.  
+本リポジトリの著者は商用サポートを提供するものではありません。ネットワーク構成やセキュリティ対策は各組織のポリシーに従って実施してください。  
+本システムで使用する物性値について、正確性を保証するものではありません。利用により生じたいかなる結果についても、作者は責任を負いません。  
+電子ビーム蒸着装置に取り付けられたSTM-2を想定して作成。  
 
 ## STM-2接続パソコンの準備：
 
