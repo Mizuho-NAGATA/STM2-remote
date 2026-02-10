@@ -19,7 +19,6 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": 0,
-  "links": [],
   "panels": [
     {
       "datasource": {
@@ -31,7 +30,6 @@
           "color": {
             "mode": "thresholds"
           },
-          "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -50,8 +48,7 @@
             ]
           },
           "unit": "percent"
-        },
-        "overrides": []
+        }
       },
       "gridPos": {
         "h": 8,
@@ -84,10 +81,6 @@
       "pluginVersion": "12.3.1",
       "targets": [
         {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "ffa7izoai6m80b"
-          },
           "groupBy": [],
           "measurement": "stm2",
           "orderByTime": "ASC",
@@ -111,7 +104,7 @@
           "tags": []
         }
       ],
-      "title": "⚠️ Target Progress Alert",
+      "title": "\u26a0\ufe0f Target Progress Alert",
       "type": "stat"
     },
     {
@@ -124,7 +117,6 @@
           "color": {
             "mode": "thresholds"
           },
-          "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -138,8 +130,7 @@
               }
             ]
           }
-        },
-        "overrides": []
+        }
       },
       "gridPos": {
         "h": 8,
@@ -217,7 +208,6 @@
           "color": {
             "mode": "thresholds"
           },
-          "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -292,7 +282,6 @@
           "color": {
             "mode": "thresholds"
           },
-          "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -306,8 +295,7 @@
               }
             ]
           }
-        },
-        "overrides": []
+        }
       },
       "gridPos": {
         "h": 8,
@@ -336,10 +324,6 @@
       "pluginVersion": "12.3.1",
       "targets": [
         {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "ffa7izoai6m80b"
-          },
           "groupBy": [
             {
               "params": [
@@ -399,7 +383,6 @@
             },
             "inspect": false
           },
-          "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -413,8 +396,7 @@
               }
             ]
           }
-        },
-        "overrides": []
+        }
       },
       "gridPos": {
         "h": 3,
@@ -514,7 +496,6 @@
           "color": {
             "mode": "palette-classic"
           },
-          "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -528,8 +509,7 @@
               }
             ]
           }
-        },
-        "overrides": []
+        }
       },
       "gridPos": {
         "h": 8,
@@ -600,18 +580,12 @@
       "type": "stat"
     }
   ],
-  "preload": false,
   "refresh": "5s",
   "schemaVersion": 42,
-  "tags": [],
-  "templating": {
-    "list": []
-  },
   "time": {
     "from": "now-5m",
     "to": "now"
   },
-  "timepicker": {},
   "timezone": "browser",
   "title": "STM-2__",
   "uid": "adww8zxxx",
