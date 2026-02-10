@@ -31,6 +31,7 @@
           "color": {
             "mode": "thresholds"
           },
+          "fieldMinMax": false,
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
@@ -54,18 +55,16 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 6,
+        "h": 8,
         "w": 12,
         "x": 0,
         "y": 0
       },
       "id": 6,
       "options": {
-        "colorMode": "background",
-        "graphMode": "none",
-        "justifyMode": "center",
+        "minVizHeight": 75,
+        "minVizWidth": 75,
         "orientation": "auto",
-        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -73,13 +72,9 @@
           "fields": "",
           "values": false
         },
-        "showPercentChange": false,
-        "text": {
-          "titleSize": 16,
-          "valueSize": 100
-        },
-        "textMode": "value_and_name",
-        "wideLayout": true
+        "showThresholdLabels": true,
+        "showThresholdMarkers": true,
+        "sizing": "auto"
       },
       "pluginVersion": "12.3.1",
       "targets": [
@@ -112,7 +107,7 @@
         }
       ],
       "title": "⚠️ Target Progress Alert",
-      "type": "stat"
+      "type": "gauge"
     },
     {
       "datasource": {
@@ -250,7 +245,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 6
+        "y": 8
       },
       "id": 5,
       "options": {
@@ -608,12 +603,12 @@
     "list": []
   },
   "time": {
-    "from": "now-5m",
+    "from": "now-15m",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "browser",
   "title": "STM-2_",
   "uid": "adww8zxx",
-  "version": 3
+  "version": 4
 }
