@@ -23,6 +23,7 @@ import os
 import threading
 import time
 from tkinter import filedialog, messagebox
+from typing import Dict, Optional, Callable, Any
 import sys
 import platform
 
@@ -38,7 +39,7 @@ from tkinterdnd2 import DND_FILES, TkinterDnD
 #   ・水晶発振式成膜コントローラ説明書（2005/09/30）p.62〜63
 #   ・元素周期表
 #   ・INFICON STM-2 説明書 A-1〜
-MATERIAL_DATA = {
+MATERIAL_DATA: Dict[str, Dict[str, float]] = {
     "Al": {"density": 2.699, "zratio": 1.08},
     "Au": {"density": 19.320, "zratio": 0.381},
     "CaO": {"density": 3.350, "zratio": 1.000},
@@ -54,7 +55,7 @@ MATERIAL_DATA = {
     "Ti": {"density": 4.54, "zratio": 0.628},
 }
 
-def setup_font():
+def setup_font() -> ctk.CTkFont:
     """
     Set appropriate font based on the current platform.
 
@@ -88,7 +89,7 @@ class STM2Logger:
         stop_event (Event): Threading event for stopping the monitor.
         prev_alert_state (dict): Previous alert states for each run_id.
     """
-    def __init__(self, host="localhost", port=8086, db="stm2"):
+    def __init__(self, host: str = "localhost", port: int = 8086, db: str = "stm2") -> None:
         """
         Initialize the STM2Logger.
 
@@ -100,15 +101,15 @@ class STM2Logger:
         self.client = InfluxDBClient(host=host, port=port)
         self.client.switch_database(db)
 
-        self.thread = None
+        self.thread: Optional[threading.Thread] = None
         self.stop_event = threading.Event()
-        self.prev_alert_state = {}
+        self.prev_alert_state: Dict[str, Optional[int]] = {}
 
     # ----------------------------
     # CSV Line Parser (STM-2 format: 5 columns with trailing comma)
     # CSV 1行パース（STM-2 は5列、末尾が空欄）
     # ----------------------------
-    def parse_csv_line(self, line):
+    def parse_csv_line(self, line: str) -> Optional[Dict[str, float]]:
         """
         Parse a single CSV line from STM-2 log file.
 
@@ -140,7 +141,17 @@ class STM2Logger:
     # ----------------------------
     # File Tail Thread / tail スレッド
     # ----------------------------
-    def tail_file(self, filepath, run_id, material, density, z_ratio, alert_threshold, target_nm, callback=None):
+    def tail_file(
+        self,
+        filepath: str,
+        run_id: str,
+        material: str,
+        density: float,
+        z_ratio: float,
+        alert_threshold: float,
+        target_nm: float,
+        callback: Optional[Callable[[Dict[str, Any]], None]] = None
+    ) -> None:
         """
         Monitor a log file and send new data to InfluxDB.
 
@@ -236,7 +247,16 @@ class STM2Logger:
     # ----------------------------
     # Start Monitoring / ログ監視開始
     # ----------------------------
-    def start(self, filepath, run_id, material, density, z_ratio, target_nm, callback=None):
+    def start(
+        self,
+        filepath: str,
+        run_id: str,
+        material: str,
+        density: float,
+        z_ratio: float,
+        target_nm: float,
+        callback: Optional[Callable[[Dict[str, Any]], None]] = None
+    ) -> None:
         """
         Start monitoring a log file.
 
@@ -281,7 +301,7 @@ class STM2Logger:
     # ----------------------------
     # Stop Monitoring / 停止
     # ----------------------------
-    def stop(self):
+    def stop(self) -> None:
         """Stop the monitoring thread."""
         self.stop_event.set()
         if self.thread:
@@ -302,7 +322,7 @@ class STM2LoggerGUI:
         root: Main application window.
         logger (STM2Logger): Logger instance for file monitoring.
     """
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize the GUI application."""
         ctk.set_appearance_mode("dark")
         ctk.set_default_color_theme("blue")
@@ -318,7 +338,7 @@ class STM2LoggerGUI:
     # ----------------------------
     # Build GUI / GUI 構築
     # ----------------------------
-    def build_gui(self):
+    def build_gui(self) -> None:
         """Construct the GUI layout and widgets."""
         default_font = setup_font()
         frame = ctk.CTkFrame(self.root, corner_radius=20)
@@ -409,7 +429,7 @@ class STM2LoggerGUI:
     # ----------------------------
     # Material Selection Handler / Material 選択時
     # ----------------------------
-    def update_material_fields(self, event=None):
+    def update_material_fields(self, event: Optional[Any] = None) -> None:
         """
         Update density and Z-ratio fields when a material is selected.
 
@@ -426,7 +446,7 @@ class STM2LoggerGUI:
     # ----------------------------
     # File Browser / ファイル参照
     # ----------------------------
-    def browse_file(self):
+    def browse_file(self) -> None:
         """Open a file dialog to select a log file."""
         filename = filedialog.askopenfilename(
             title="STM-2 ログファイルを選択",
@@ -441,7 +461,7 @@ class STM2LoggerGUI:
     # ----------------------------
     # Drag and Drop Handler / DnD
     # ----------------------------
-    def drop_file(self, event):
+    def drop_file(self, event: Any) -> None:
         """
         Handle file drag-and-drop events.
 
@@ -457,7 +477,7 @@ class STM2LoggerGUI:
     # ----------------------------
     # Start Logging / Start
     # ----------------------------
-    def start_logging(self):
+    def start_logging(self) -> None:
         """Start the logging process with current configuration."""
         try:
             material = self.combo_material.get()
@@ -496,7 +516,7 @@ class STM2LoggerGUI:
     # ----------------------------
     # Stop Logging / Stop
     # ----------------------------
-    def stop_logging(self):
+    def stop_logging(self) -> None:
         """Stop the logging process."""
         self.logger.stop()
         self.btn_start.configure(state="normal")
@@ -506,7 +526,7 @@ class STM2LoggerGUI:
     # ----------------------------
     # GUI Update Callback / GUI 更新
     # ----------------------------
-    def update_status(self, data):
+    def update_status(self, data: Dict[str, Any]) -> None:
         """
         Update the status label with new data from the logger.
 
@@ -523,7 +543,7 @@ class STM2LoggerGUI:
     # ----------------------------
     # Run Application / 実行
     # ----------------------------
-    def run(self):
+    def run(self) -> None:
         """Start the GUI main loop."""
         self.root.mainloop()
 
