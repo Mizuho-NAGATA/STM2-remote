@@ -13,17 +13,7 @@
 - STM-2 の膜厚・成膜レート・周波数をリアルタイム監視
 - ネットワーク経由での多地点同時監視
 - 目標厚さの80%を超えるとパネルが赤く点灯してお知らせします
-- Real-time monitoring of STM-2 film thickness, deposition rate, and frequency
-- Simultaneous multi-site monitoring via network
-- Panel lights up red to notify when thickness exceeds 80% of target thickness
 ![keikoku](https://github.com/user-attachments/assets/13df291b-82ce-4b08-9643-8e03dbeeca35)
-
-注意：このプログラムはINFICON社の公式なものではありません。  
-本リポジトリの著者は商用サポートを提供するものではありません。ネットワーク構成やセキュリティ対策は各組織のポリシーに従って実施してください。  
-本システムで使用する物性値について、正確性を保証するものではありません。利用により生じたいかなる結果についても、作者は責任を負いません。  
-電子ビーム蒸着装置に取り付けられたSTM-2を想定して作成。  
-Note: This program is not official INFICON.  
-The author of this repository does not provide commercial support. Network configuration and security measures should be implemented in accordance with each organization's policies.  
 
 ## STM-2接続パソコンの準備：
 
@@ -216,6 +206,12 @@ sudo systemctl enable grafana-server
 - **Windows のネットワークプロファイルが「パブリック」** になっており、通信が遮断されている
 ---
 
+## 注意：  
+- このプログラムはINFICON社の公式なものではありません。  
+- 本リポジトリの著者は商用サポートを提供するものではありません。ネットワーク構成やセキュリティ対策は各組織のポリシーに従って実施してください。  
+- 本システムで使用する物性値について、正確性を保証するものではありません。利用により生じたいかなる結果についても、作者は責任を負いません。  
+- 電子ビーム蒸着装置に取り付けられたSTM-2を想定して作成。  
+---
 ## 著者  
 - Copyright (c) 2026 NAGATA Mizuho, 永田 みず穂 - Institute of Laser Engineering, The University of Osaka
 ---
