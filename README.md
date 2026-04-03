@@ -15,6 +15,27 @@
 - 目標厚さの80%を超えるとパネルが赤く点灯してお知らせします
 ![keikoku](https://github.com/user-attachments/assets/13df291b-82ce-4b08-9643-8e03dbeeca35)
 
+## 🚀 概要（Quick Start）
+
+**STM‑2が出力する「記録中の .log」** をPythonで読み取り、**InfluxDBに保存**して、**Grafanaで別PCからブラウザ監視**するシステムです。
+
+### 全体構成（PCは2種類）
+- **STM‑2接続PC（送信側）**：STM‑2ログ記録 → Python GUI → InfluxDB → Grafana
+- **クライアントPC（閲覧側）**：WebブラウザでGrafanaにアクセスして監視のみ
+
+### 最短の動作手順
+#### 1) STM‑2接続PCでやること
+1. 固定IPアドレスを設定  
+2. ファイアウォールで **3000（Grafana）**（必要に応じて **8086（InfluxDB）**）を許可  
+3. INFICON公式 **STM‑2ソフト**でログ記録を **Start**（.logを記録中にする）  
+4. **InfluxDB（v1.x推奨）** を起動  
+5. 本リポジトリの **Python GUI** を起動し、目標厚さ・材料・記録中の `.log` を指定  
+   → InfluxDBへの書き込み開始
+
+#### 2) クライアントPCでやること
+- ブラウザで次へアクセス：`http://（STM‑2接続PCの固定IP）:3000`  
+- Grafanaダッシュボードでリアルタイム監視（`STM-2_dashboard.json` をあらかじめ Import しておく）
+
 ## STM-2接続パソコンの準備：
 
 ### 🪟 Windows の場合
