@@ -19,6 +19,7 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": 0,
+  "links": [],
   "panels": [
     {
       "datasource": {
@@ -30,6 +31,9 @@
           "color": {
             "mode": "thresholds"
           },
+          "mappings": [],
+          "max": 100,
+          "min": 0,
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -48,7 +52,8 @@
             ]
           },
           "unit": "percent"
-        }
+        },
+        "overrides": []
       },
       "gridPos": {
         "h": 8,
@@ -78,12 +83,15 @@
         "textMode": "value_and_name",
         "wideLayout": true
       },
+      "pluginVersion": "12.3.1",
       "targets": [
         {
           "groupBy": [],
           "measurement": "stm2",
           "orderByTime": "ASC",
           "policy": "default",
+          "query": "SELECT last(\"progress_percentage\") / 10 FROM \"stm2\" WHERE $timeFilter",
+          "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
           "select": [
@@ -116,6 +124,7 @@
           "color": {
             "mode": "thresholds"
           },
+          "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -129,7 +138,8 @@
               }
             ]
           }
-        }
+        },
+        "overrides": []
       },
       "gridPos": {
         "h": 8,
@@ -155,6 +165,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
+      "pluginVersion": "12.3.1",
       "targets": [
         {
           "groupBy": [
@@ -174,6 +185,8 @@
           "measurement": "stm2",
           "orderByTime": "ASC",
           "policy": "default",
+          "query": "SELECT mean(\"thickness\") / 10 FROM \"stm2\" WHERE $timeFilter GROUP BY time($__interval) fill(null)",
+          "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
           "select": [
@@ -206,6 +219,7 @@
           "color": {
             "mode": "thresholds"
           },
+          "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -258,6 +272,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
+      "pluginVersion": "12.3.1",
       "targets": [
         {
           "query": "SELECT last(\"target_thickness\") FROM \"stm2_settings\"",
@@ -279,6 +294,7 @@
           "color": {
             "mode": "thresholds"
           },
+          "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -292,7 +308,8 @@
               }
             ]
           }
-        }
+        },
+        "overrides": []
       },
       "gridPos": {
         "h": 8,
@@ -318,6 +335,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
+      "pluginVersion": "12.3.1",
       "targets": [
         {
           "groupBy": [
@@ -337,6 +355,8 @@
           "measurement": "stm2",
           "orderByTime": "ASC",
           "policy": "default",
+          "query": "SELECT (mean(\"rate\")/10) FROM \"stm2\" WHERE $timeFilter GROUP BY time($__interval) fill(null)",
+          "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
           "select": [
@@ -379,6 +399,7 @@
             },
             "inspect": false
           },
+          "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -392,7 +413,8 @@
               }
             ]
           }
-        }
+        },
+        "overrides": []
       },
       "gridPos": {
         "h": 3,
@@ -411,6 +433,7 @@
           }
         ]
       },
+      "pluginVersion": "12.3.1",
       "targets": [
         {
           "groupBy": [
@@ -455,6 +478,7 @@
           "tags": []
         }
       ],
+      "title": "",
       "transformations": [
         {
           "id": "organize",
@@ -490,6 +514,7 @@
           "color": {
             "mode": "palette-classic"
           },
+          "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -503,7 +528,8 @@
               }
             ]
           }
-        }
+        },
+        "overrides": []
       },
       "gridPos": {
         "h": 8,
@@ -529,6 +555,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
+      "pluginVersion": "12.3.1",
       "targets": [
         {
           "groupBy": [
@@ -573,14 +600,20 @@
       "type": "stat"
     }
   ],
+  "preload": false,
   "refresh": "5s",
   "schemaVersion": 42,
-  "time": {
-    "from": "now-5m",
-    "to": "now"
+  "tags": [],
+  "templating": {
+    "list": []
   },
+  "time": {
+    "from": "2026-05-12T23:36:55.681Z",
+    "to": "2026-05-12T23:46:55.681Z"
+  },
+  "timepicker": {},
   "timezone": "browser",
-  "title": "STM-2__",
+  "title": "STM-2",
   "uid": "adww8zxxx",
-  "version": 2
+  "version": 5
 }
