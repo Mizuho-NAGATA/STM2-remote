@@ -64,6 +64,11 @@ def setup_font():
 # ロガー本体（GUI 非依存）
 # ============================================================
 class STM2Logger:
+    NOTIFICATION_THRESHOLD_LOW_PERCENT = 80
+    NOTIFICATION_THRESHOLD_HIGH_PERCENT = 95
+    LOW_THRESHOLD_KEY = "low"
+    HIGH_THRESHOLD_KEY = "high"
+
     def __init__(self, host="localhost", port=8086, db="stm2"):
         self.client = InfluxDBClient(host=host, port=port)
         self.client.switch_database(db)
@@ -72,6 +77,17 @@ class STM2Logger:
         self.stop_event = threading.Event()
         self.prev_alert_state = {}
         self.notified_thresholds = {}
+        self.current_run_id = None
+
+    def reset_notification_state(self, run_id):
+        self.notified_thresholds[run_id] = {
+            self.LOW_THRESHOLD_KEY: False,
+            self.HIGH_THRESHOLD_KEY: False,
+        }
+
+    def cleanup_run_state(self, run_id):
+        self.prev_alert_state.pop(run_id, None)
+        self.notified_thresholds.pop(run_id, None)
 
     # ----------------------------
     # CSV 1行パース（STM-2 は5列、末尾が空欄）
@@ -102,8 +118,6 @@ class STM2Logger:
 
         if run_id not in self.prev_alert_state:
             self.prev_alert_state[run_id] = None
-        if run_id not in self.notified_thresholds:
-            self.notified_thresholds[run_id] = {"80": False, "95": False}
 
         try:
             with open(filepath, "r", encoding="utf-8", errors="ignore") as f:
@@ -191,7 +205,10 @@ class STM2Logger:
     def start(self, filepath, run_id, material, density, z_ratio, target_nm, callback=None):
         self.stop_event.clear()
         alert_threshold = target_nm * 0.8
-        self.notified_thresholds[run_id] = {"80": False, "95": False}
+        if self.current_run_id is not None and self.current_run_id != run_id:
+            self.cleanup_run_state(self.current_run_id)
+        self.current_run_id = run_id
+        self.reset_notification_state(run_id)
 
         # 初期設定を InfluxDB に書き込み
         try:
@@ -227,21 +244,23 @@ class STM2Logger:
             print(f"Desktop notification error: {e}")
 
     def maybe_send_progress_notifications(self, run_id, progress_percentage, thickness_nm, target_nm):
+        if run_id not in self.notified_thresholds:
+            self.reset_notification_state(run_id)
         notified = self.notified_thresholds[run_id]
 
-        if progress_percentage >= 80 and not notified["80"]:
+        if progress_percentage >= self.NOTIFICATION_THRESHOLD_LOW_PERCENT and not notified[self.LOW_THRESHOLD_KEY]:
             self.send_desktop_notification(
                 "STM2 Alert: 80% reached",
                 f"Run ID: {run_id}\nThickness: {thickness_nm:.2f} nm / {target_nm:.2f} nm ({progress_percentage:.1f}%)",
             )
-            notified["80"] = True
+            notified[self.LOW_THRESHOLD_KEY] = True
 
-        if progress_percentage >= 95 and not notified["95"]:
+        if progress_percentage >= self.NOTIFICATION_THRESHOLD_HIGH_PERCENT and not notified[self.HIGH_THRESHOLD_KEY]:
             self.send_desktop_notification(
                 "STM2 Alert: 95% reached",
                 f"Run ID: {run_id}\nThickness: {thickness_nm:.2f} nm / {target_nm:.2f} nm ({progress_percentage:.1f}%)",
             )
-            notified["95"] = True
+            notified[self.HIGH_THRESHOLD_KEY] = True
 
     # ----------------------------
     # 停止
@@ -250,6 +269,9 @@ class STM2Logger:
         self.stop_event.set()
         if self.thread:
             self.thread.join(timeout=1.0)
+        if self.current_run_id is not None:
+            self.cleanup_run_state(self.current_run_id)
+            self.current_run_id = None
 
 
 # ============================================================
