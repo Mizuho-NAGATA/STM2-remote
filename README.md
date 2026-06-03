@@ -12,7 +12,7 @@
 
 - STM-2 の膜厚・成膜レート・周波数をリアルタイム監視
 - ネットワーク経由での多地点同時監視
-- 目標厚さの80%を超えるとパネルが赤く点灯してお知らせします
+- 目標厚さの80%・95%到達時に、デスクトップ通知を1回ずつ送信します（macOS / Windows / Linux）
 ![keikoku](https://github.com/user-attachments/assets/13df291b-82ce-4b08-9643-8e03dbeeca35)
 
 ## 🚀 概要（Quick Start）
@@ -47,7 +47,7 @@ Windows Defender ファイアウォールに受信規則を追加してポート
 
 コマンドプロンプトで下記のコマンドを実行して必要なライブラリをインストールする。  
 ```cmd
-pip install influxdb customtkinter tkinterdnd2
+pip install influxdb customtkinter tkinterdnd2 notify-py
 ```
 
 または requirements.txt を使用：
@@ -82,7 +82,7 @@ brew install python3
 
 ターミナルで下記のコマンドを実行して必要なライブラリをインストールする。  
 ```bash
-pip3 install influxdb customtkinter tkinterdnd2
+pip3 install influxdb customtkinter tkinterdnd2 notify-py
 ```
 
 または requirements.txt を使用：
@@ -133,7 +133,7 @@ sudo dnf install python3 python3-pip
 
 ターミナルで下記のコマンドを実行して必要なライブラリをインストールする。  
 ```bash
-pip3 install influxdb customtkinter tkinterdnd2
+pip3 install influxdb customtkinter tkinterdnd2 notify-py
 ```
 
 または requirements.txt を使用：

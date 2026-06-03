@@ -8,6 +8,7 @@
 # pip install influxdb
 # pip install customtkinter
 # pip install tkinterdnd2
+# pip install notify-py
 # -------------------------------------------------------------
 import csv
 import os
@@ -19,6 +20,7 @@ import platform
 
 import customtkinter as ctk
 from influxdb import InfluxDBClient
+from notifypy import Notify
 from tkinterdnd2 import DND_FILES, TkinterDnD
 
 # --- 材料データ ---
@@ -69,6 +71,7 @@ class STM2Logger:
         self.thread = None
         self.stop_event = threading.Event()
         self.prev_alert_state = {}
+        self.notified_thresholds = {}
 
     # ----------------------------
     # CSV 1行パース（STM-2 は5列、末尾が空欄）
@@ -99,6 +102,8 @@ class STM2Logger:
 
         if run_id not in self.prev_alert_state:
             self.prev_alert_state[run_id] = None
+        if run_id not in self.notified_thresholds:
+            self.notified_thresholds[run_id] = {"80": False, "95": False}
 
         try:
             with open(filepath, "r", encoding="utf-8", errors="ignore") as f:
@@ -123,6 +128,12 @@ class STM2Logger:
                     # ----------------------------
                     # パーセンテージ計算
                     progress_percentage = (data["thickness"] / target_nm) * 100 if target_nm > 0 else 0
+                    self.maybe_send_progress_notifications(
+                        run_id,
+                        progress_percentage,
+                        data["thickness"],
+                        target_nm,
+                    )
                     
                     json_body = [
                         {
@@ -180,6 +191,7 @@ class STM2Logger:
     def start(self, filepath, run_id, material, density, z_ratio, target_nm, callback=None):
         self.stop_event.clear()
         alert_threshold = target_nm * 0.8
+        self.notified_thresholds[run_id] = {"80": False, "95": False}
 
         # 初期設定を InfluxDB に書き込み
         try:
@@ -203,6 +215,33 @@ class STM2Logger:
             daemon=True
         )
         self.thread.start()
+
+    def send_desktop_notification(self, title, message):
+        try:
+            notification = Notify()
+            notification.application_name = "STM2 Remote Monitor"
+            notification.title = title
+            notification.message = message
+            notification.send()
+        except Exception as e:
+            print(f"Desktop notification error: {e}")
+
+    def maybe_send_progress_notifications(self, run_id, progress_percentage, thickness_nm, target_nm):
+        notified = self.notified_thresholds[run_id]
+
+        if progress_percentage >= 80 and not notified["80"]:
+            self.send_desktop_notification(
+                "STM2 Alert: 80% reached",
+                f"Run ID: {run_id}\nThickness: {thickness_nm:.2f} nm / {target_nm:.2f} nm ({progress_percentage:.1f}%)",
+            )
+            notified["80"] = True
+
+        if progress_percentage >= 95 and not notified["95"]:
+            self.send_desktop_notification(
+                "STM2 Alert: 95% reached",
+                f"Run ID: {run_id}\nThickness: {thickness_nm:.2f} nm / {target_nm:.2f} nm ({progress_percentage:.1f}%)",
+            )
+            notified["95"] = True
 
     # ----------------------------
     # 停止
@@ -425,4 +464,3 @@ class STM2LoggerGUI:
 if __name__ == "__main__":
     gui = STM2LoggerGUI()
     gui.run()
-
