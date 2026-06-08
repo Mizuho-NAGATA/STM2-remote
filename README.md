@@ -2,9 +2,11 @@
 - INFICON STM-2 USB 薄膜蒸着レート/膜厚モニター の.logファイルを遠隔監視するためのシステム。
 - **InfluxDB** と **Grafana** を用いてネットワーク越しにリアルタイムで可視化します。  
 - このリポジトリには、すぐに利用できる Grafana ダッシュボード（JSON）が含まれています。
+- STM-2の単位設定が Å であることを想定して、Pythonコード内で nm に換算し Influxdb に書き込んでいます。
 - System for remote monitoring of .log files from the INFICON STM-2 USB Thin Film Deposition Rate/Film Thickness Monitor.
 - Visualizes data in real time over the network using InfluxDB and Grafana.
 - This repository includes a ready-to-use Grafana dashboard (JSON).
+- - Assuming that the unit setting for STM-2 is Å, I am converting the values to nm in the Python code and writing them to InfluxDB.
 
 ![外部向け説明資料](https://github.com/user-attachments/assets/eb5fce0c-8dbf-4847-b3d2-5c2d21164ab5)  
 
