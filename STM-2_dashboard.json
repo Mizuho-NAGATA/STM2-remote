@@ -400,7 +400,7 @@
             "type": "influxdb",
             "uid": "cfo6axrjvc54wf"
           },
-          "query": "SELECT mean(\"rate\") FROM \"stm2\" WHERE $timeFilter GROUP BY time($__interval) fill(null)",
+          "query": "SELECT last(\"rate\") FROM \"stm2\" WHERE $timeFilter GROUP BY time($__interval) fill(null)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series"
@@ -651,5 +651,5 @@
   "timezone": "browser",
   "title": "STM-2",
   "uid": "adww8zxxx",
-  "version": 35
+  "version": 36
 }
