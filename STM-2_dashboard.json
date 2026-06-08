@@ -206,8 +206,8 @@
           "measurement": "stm2",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT last(\"thickness\") FROM \"stm2\" WHERE $timeFilter GROUP BY time($__interval) fill(null)",
-          "rawQuery": false,
+          "query": "SELECT last(\"thickness\") /10 FROM \"stm2\" WHERE $timeFilter GROUP BY time($__interval) fill(null)",
+          "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
           "select": [
@@ -400,7 +400,7 @@
             "type": "influxdb",
             "uid": "cfo6axrjvc54wf"
           },
-          "query": "SELECT mean(\"rate\") FROM \"stm2\" WHERE $timeFilter GROUP BY time($__interval) fill(null)",
+          "query": "SELECT mean(\"rate\") /10 FROM \"stm2\" WHERE $timeFilter GROUP BY time($__interval) fill(null)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series"
@@ -651,5 +651,5 @@
   "timezone": "browser",
   "title": "STM-2",
   "uid": "adww8zxxx",
-  "version": 28
+  "version": 30
 }
