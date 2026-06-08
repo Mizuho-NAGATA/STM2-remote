@@ -121,8 +121,9 @@ class STM2Logger:
                     # ----------------------------
                     # InfluxDB 書き込み（density / z_ratio を tag 化）
                     # ----------------------------
-                    # 1. まず生データを nm に変換して変数に持つ（可読性と拡張性のため）
-                    current_nm = data["thickness"] / 10.0  # 生データがÅ前提
+                    # 1. 生データ（Å基準）をすべて nm 基準に変換
+                    current_nm = data["thickness"] / 10.0  # Å から nm へ変換
+                    current_rate = data["rate"] / 10.0      # Å/s から nm/s へ変換
 
                     # 2. 進捗率は nm 同士で計算する
                     progress_percentage = (current_nm / target_nm) * 100 if target_nm > 0 else 0
@@ -138,8 +139,8 @@ class STM2Logger:
                             },
                             "fields": {
                                 "time": data["time"],
-                                "rate": data["rate"],
-                                "thickness": current_nm, # ◀ 変更：生データ（data["thickness"]）から current_nm に変更
+                                "rate": current_rate,      # ◀ 生データから換算後の変数に変更
+                                "thickness": current_nm,   # ◀ 生データから換算後の変数に変更
                                 "frequency": data["frequency"],
                                 "progress_percentage": progress_percentage,
                             },
