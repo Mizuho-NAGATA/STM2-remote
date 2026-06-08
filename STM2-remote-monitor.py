@@ -139,13 +139,12 @@ class STM2Logger:
                             "fields": {
                                 "time": data["time"],
                                 "rate": data["rate"],
-                                "thickness": data["thickness"],
+                                "thickness": current_nm, # ◀ 変更：生データ（data["thickness"]）から current_nm に変更
                                 "frequency": data["frequency"],
                                 "progress_percentage": progress_percentage,
                             },
                         }
                     ]
-
                     try:
                         self.client.write_points(json_body)
                     except Exception as e:
