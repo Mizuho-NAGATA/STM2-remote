@@ -6,7 +6,7 @@
 - System for remote monitoring of .log files from the INFICON STM-2 USB Thin Film Deposition Rate/Film Thickness Monitor.
 - Visualizes data in real time over the network using InfluxDB and Grafana.
 - This repository includes a ready-to-use Grafana dashboard (JSON).
-- - Assuming that the unit setting for STM-2 is Å, I am converting the values to nm in the Python code and writing them to InfluxDB.
+- Assuming that the unit setting for STM-2 is Å, I am converting the values to nm in the Python code and writing them to InfluxDB.
 
 ![外部向け説明資料](https://github.com/user-attachments/assets/eb5fce0c-8dbf-4847-b3d2-5c2d21164ab5)  
 
