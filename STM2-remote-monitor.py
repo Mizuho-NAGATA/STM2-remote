@@ -121,8 +121,11 @@ class STM2Logger:
                     # ----------------------------
                     # InfluxDB 書き込み（density / z_ratio を tag 化）
                     # ----------------------------
-                    # パーセンテージ計算
-                    progress_percentage = (data["thickness"] / target_nm) * 100 if target_nm > 0 else 0
+                    # 1. まず生データを nm に変換して変数に持つ（可読性と拡張性のため）
+                    current_nm = data["thickness"] / 10.0  # 生データがÅ前提
+
+                    # 2. 進捗率は nm 同士で計算する
+                    progress_percentage = (current_nm / target_nm) * 100 if target_nm > 0 else 0
                     
                     json_body = [
                         {
