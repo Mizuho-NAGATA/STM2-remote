@@ -18,7 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 0,
+  "id": 3,
   "links": [],
   "panels": [
     {
@@ -560,7 +560,7 @@
         "sortBy": [
           {
             "desc": true,
-            "displayName": "Thickness"
+            "displayName": "Time"
           }
         ]
       },
@@ -651,5 +651,5 @@
   "timezone": "browser",
   "title": "STM-2",
   "uid": "adww8zxxx",
-  "version": 36
+  "version": 37
 }
