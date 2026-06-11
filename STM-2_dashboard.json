@@ -18,7 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 3,
+  "id": 0,
   "links": [],
   "panels": [
     {
@@ -651,5 +651,5 @@
   "timezone": "browser",
   "title": "STM-2",
   "uid": "adww8zxxx",
-  "version": 37
+  "version": 38
 }
