@@ -45,18 +45,20 @@ MATERIAL_DATA = {
     "Ti": {"density": 4.54, "zratio": 0.628},
 }
 
+
 def setup_font():
     """Set appropriate font based on platform"""
     current_platform = platform.system()  # 'Windows', 'Darwin' (macOS), 'Linux'
-    
+
     if current_platform == 'Windows':
         font_family = "Meiryo"
     elif current_platform == 'Darwin':  # macOS
         font_family = "Hiragino Sans"
     else:  # Linux
         font_family = "Noto Sans CJK JP"
-    
+
     return ctk.CTkFont(family=font_family, size=24)
+
 
 # ============================================================
 # ロガー本体（GUI 非依存）
@@ -127,7 +129,7 @@ class STM2Logger:
 
                     # 2. 進捗率は nm 同士で計算する
                     progress_percentage = (current_nm / target_nm) * 100 if target_nm > 0 else 0
-                    
+
                     json_body = [
                         {
                             "measurement": "stm2",
@@ -139,8 +141,8 @@ class STM2Logger:
                             },
                             "fields": {
                                 "time": data["time"],
-                                "rate": current_rate,      # ◀ 生データから換算後の変数に変更
-                                "thickness": current_nm,   # ◀ 生データから換算後の変数に変更
+                                "rate": current_rate,      # 生データから換算後の変数に変更
+                                "thickness": current_nm,   # 生データから換算後の変数に変更
                                 "frequency": data["frequency"],
                                 "progress_percentage": progress_percentage,
                             },
@@ -428,4 +430,3 @@ class STM2LoggerGUI:
 if __name__ == "__main__":
     gui = STM2LoggerGUI()
     gui.run()
-
