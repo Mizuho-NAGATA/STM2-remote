@@ -154,7 +154,7 @@ class STM2Logger:
                     # ----------------------------
                     # アラート判定
                     # ----------------------------
-                    alert_state = int(data["thickness"] >= alert_threshold)
+                    alert_state = int(current_nm >= alert_threshold)
 
                     if alert_state != self.prev_alert_state[run_id]:
                         try:
