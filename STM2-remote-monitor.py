@@ -1,9 +1,9 @@
 # -------------------------------------------------------------
-# 本ソフトウェアは Microsoft Copilot 、ChatGPT を活用して開発されました。
+# 本ソフトウェアは Microsoft Copilot, ChatGPT, Gemini を活用して開発されました。
 # Copyright (c) 2026 NAGATA Mizuho.
 # Institute of Laser Engineering, The University of Osaka.
 # Created on: 2026-01-20
-# Last updated on: 2026-02-09
+# Last updated on: 2026-11-13
 #
 # pip install influxdb
 # pip install customtkinter
@@ -65,12 +65,11 @@ def setup_font():
 # ============================================================
 class STM2Logger:
     def __init__(self, host="localhost", port=8086, db="stm2"):
-        self.client = InfluxDBClient(host=host, port=port)
+        self.client = InfluxDBClient(host=host, port=port, timeout=3)
         self.client.switch_database(db)
 
         self.thread = None
         self.stop_event = threading.Event()
-        self.prev_alert_state = {}
 
     # ----------------------------
     # CSV 1行パース（STM-2 は5列、末尾が空欄）
@@ -97,18 +96,18 @@ class STM2Logger:
     # ----------------------------
     # tail スレッド
     # ----------------------------
-    def tail_file(self, filepath, run_id, material, density, z_ratio, alert_threshold, target_nm, callback=None):
-
-        if run_id not in self.prev_alert_state:
-            self.prev_alert_state[run_id] = None
-
+    def tail_file(self, filepath, run_id, material, density, z_ratio, target_nm, callback=None):
         try:
             with open(filepath, "r", encoding="utf-8", errors="ignore") as f:
                 f.seek(0, os.SEEK_END)
 
                 while not self.stop_event.is_set():
+                    current_pos = f.tell()
                     line = f.readline()
-                    if not line:
+
+                    # 改行まで書き込まれていない場合は位置を戻して待機
+                    if not line or not line.endswith("\n"):
+                        f.seek(current_pos)
                         time.sleep(0.2)
                         continue
 
@@ -141,8 +140,8 @@ class STM2Logger:
                             },
                             "fields": {
                                 "time": data["time"],
-                                "rate": current_rate,      # 生データから換算後の変数に変更
-                                "thickness": current_nm,   # 生データから換算後の変数に変更
+                                "rate": current_rate,
+                                "thickness": current_nm,
                                 "frequency": data["frequency"],
                                 "progress_percentage": progress_percentage,
                             },
@@ -152,24 +151,6 @@ class STM2Logger:
                         self.client.write_points(json_body)
                     except Exception as e:
                         print(f"InfluxDB write error: {e}")
-
-                    # ----------------------------
-                    # アラート判定
-                    # ----------------------------
-                    alert_state = int(current_nm >= alert_threshold)
-
-                    if alert_state != self.prev_alert_state[run_id]:
-                        try:
-                            self.client.write_points([
-                                {
-                                    "measurement": "stm2_settings",
-                                    "tags": {"run_id": run_id},
-                                    "fields": {"alert_state": alert_state}
-                                }
-                            ])
-                            self.prev_alert_state[run_id] = alert_state
-                        except Exception as e:
-                            print(f"InfluxDB alert write error: {e}")
 
                     # GUI 更新コールバック
                     if callback:
@@ -204,7 +185,7 @@ class STM2Logger:
         # スレッド開始
         self.thread = threading.Thread(
             target=self.tail_file,
-            args=(filepath, run_id, material, density, z_ratio, alert_threshold, target_nm, callback),
+            args=(filepath, run_id, material, density, z_ratio, target_nm, callback),
             daemon=True
         )
         self.thread.start()
@@ -229,6 +210,7 @@ class STM2LoggerGUI:
         self.root = TkinterDnD.Tk()
         self.root.title("STM-2 CSV Logger")
         self.root.geometry("700x650")
+        self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
 
         self.logger = STM2Logger()
 
@@ -387,7 +369,7 @@ class STM2LoggerGUI:
                 density=density,
                 z_ratio=z_ratio,
                 target_nm=target_nm,
-                callback=self.update_status,
+                callback=self.schedule_status_update,
             )
         except Exception as e:
             messagebox.showerror("エラー", str(e))
@@ -407,15 +389,26 @@ class STM2LoggerGUI:
         self.label_status.configure(text="Stopped")
 
     # ----------------------------
-    # GUI 更新
+    # GUI 更新（スレッド安全）
     # ----------------------------
-    def update_status(self, data):
+    def schedule_status_update(self, data):
+        self.root.after(0, self._update_status_ui, data)
+
+    def _update_status_ui(self, data):
         if "error" in data:
             self.label_status.configure(text=f"Error: {data['error']}")
+            self.stop_logging()
         else:
             self.label_status.configure(
                 text=f"t={data['time']}  thick={data['thickness']}"
             )
+
+    # ----------------------------
+    # ウィンドウ終了時
+    # ----------------------------
+    def on_closing(self):
+        self.logger.stop()
+        self.root.destroy()
 
     # ----------------------------
     # 実行
